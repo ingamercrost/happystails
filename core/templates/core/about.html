@@ -1,0 +1,41 @@
+{% extends 'core/base.html' %}
+
+{% load static %}
+
+{% block contenido %}
+
+		<div class="breadcrumbs">
+			<div class="container">
+				<div class="row">
+					<div class="col">
+						<p class="bread"><span><a href="{% url 'index' %}">Inicio</a></span> / <span>Contacto</span></p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="colorlib-about">
+			<div class="container">
+				<div class="row row-pb-lg">
+					<div class="col-sm-6 mb-3">
+						<div class="video colorlib-video" style="background-image: url({% static 'core/images/mascota1.jpg' %});">
+							<a href="https://youtu.be/LzvX2-R6cyM" class="popup-vimeo"><i class="icon-play3"></i></a>
+							<div class="overlay"></div>
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div class="about-wrap">
+							
+							<h2>HappyTails, una tienda de accesorios para tus mascotas</h2>
+							<br>
+							<br>
+							<p>En Happy Tails, encuentra todo lo que necesitas para cuidar de tu mascota. Con variedad de productos y alimentos para perros y gatos. Envío gratis y rápido en Santiago, hacer que tus mascotas sean felices es fácil 🐾</p>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		{% endblock %}

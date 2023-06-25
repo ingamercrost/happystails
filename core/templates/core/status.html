@@ -1,0 +1,46 @@
+{% extends 'core/base.html' %}
+
+{% load static %}
+
+{% block contenido %}
+
+<div class="container mt-3">
+    <h1>Suscripcion</h1> <rb></rb>
+   
+        <table class="table table-striped" id="tablaUsuarios"id="tablaUsuarios">
+        <thead>
+            <tr>
+                <th>Suscrito</th>
+                {% if usuario == True %}
+                <th>Cancelar Suscripcion</th>
+                {% else %}
+                <th>Suscribete</th>
+                {% endif %}
+                {% if usuario == True %}
+                <th>Mensaje</th>
+                {% endif %}
+
+            </tr>
+        </thead>
+        
+            
+                <tbody>
+                    <tr>
+                        {% if usuario == True %}
+                        <td>Si</td>
+                        <td><a href="{% url 'quitar_usuario_de_grupo' user.id %}">Cancelar Mi Suscripcion</a></td>
+                        <td>¡Gracias por aportar a esta causa, tú donacion irá destinada a todos los animales en situacion de calle!</td>
+                        {% else %}
+                        <td>No</td>
+                        <td><a href="{% url 'suscripcion' %}">Suscribirme</a></td>
+                        {% endif %}
+                        
+                        
+                    </tr>  
+                </tbody>
+                
+        
+        </table>
+</div>
+
+{% endblock %}

@@ -1,0 +1,95 @@
+{% extends 'core/base.html' %}
+
+{% load static %}
+
+{% block contenido %}
+
+		<div class="breadcrumbs">
+			<div class="container">
+				<div class="row">
+					<div class="col">
+						<p class="bread"><span><a href="{% url 'index' %}">Inicio</a></span> / <span>Contacto</span></p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div id="colorlib-contact">
+			<div class="container text-center">
+				<div class="row">
+					<div class="col-sm-12">
+						<h3>Informacion de contacto</h3>
+						<div class="row contact-info-wrap">
+							<div class="col-md-3">
+								<p>Avenida Concha Y Toro, Av. San Carlos 1340, Puente Alto, Región Metropolitana</p>
+							</div>
+							<div class="col-md-3">
+								<p><a href="tel://1234567920">+569 1234 5678</a></p>
+							</div>
+							<div class="col-md-3">
+								<p><a href="mailto:info@yoursite.com">contacto@HappyTails.com</a></p>
+							</div>
+							<div class="col-md-3">
+								<p><a href="#">happytails.com</a></p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="contact-wrap">
+							<h3>Contactate con nosotros</h3>
+							<form action="#" class="contact-form">
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="fname">Nombre</label>
+											<input type="text" id="fname" class="form-control" placeholder="Ingresa tu nombre">
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="lname">Apellido</label>
+											<input type="text" id="lname" class="form-control" placeholder="Ingresa tu apellido">
+										</div>
+									</div>
+									<div class="w-100"></div>
+									<div class="col-sm-12">
+										<div class="form-group">
+											<label for="email">Correo electronico</label>
+											<input type="text" id="email" class="form-control" placeholder="Ingresa tu correo electronico">
+										</div>
+									</div>
+									<div class="w-100"></div>
+									<div class="col-sm-12">
+										<div class="form-group">
+											<label for="subject">Titulo</label>
+											<input type="text" id="subject" class="form-control" placeholder="Titulo">
+										</div>
+									</div>
+									<div class="w-100"></div>
+									<div class="col-sm-12">
+										<div class="form-group">
+											<label for="message">Mensaje</label>
+											<textarea name="message" id="message" cols="30" rows="10" class="form-control" placeholder="Dinos lo que ocurre"></textarea>
+										</div>
+									</div>
+									<div class="w-100"></div>
+									<div class="col-sm-12">
+										<div class="form-group">
+											<input type="submit" value="Enviar Mensaje" class="btn btn-primary">
+										</div>
+									</div>
+								</div>
+							</form>		
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div id="map" class="colorlib-map"></div>		
+					</div>
+				</div>
+			</div>
+		</div>
+
+		{% endblock %}

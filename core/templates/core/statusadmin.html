@@ -1,0 +1,39 @@
+{% extends 'core/base.html' %}
+
+{% load static %}
+
+
+{% block contenido %}
+
+<div class="container mt-3">
+    <h1>Historial de Pedidos</h1> <rb></rb>
+   
+        <table class="table table-striped" id="tablaUsuarios"id="tablaUsuarios">
+        <thead>
+            <tr>
+                <th>Id pedido</th>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Usuario</th>
+                <th>Detalle</th>
+
+            </tr>
+        </thead>
+        
+            {% for aux in pedido %}
+                <tbody>
+                    <tr>
+                        <td>{{aux.id}}</td>
+                        <td>{{aux.create_at|date:'Y-m-d' }}</td>
+                        <td>{{aux.create_at|time:'H:i' }}</td>
+                        <td>{{aux.user}}</td>
+                        <td><a href="{% url 'detallepedido' aux.id%}">Detalle</a></td>
+                    </tr>  
+                </tbody>  
+            {% endfor %}
+        
+        
+        </table>
+</div>
+
+{% endblock %}

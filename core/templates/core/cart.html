@@ -1,0 +1,166 @@
+{% extends 'core/base.html' %}
+
+{% load static %}
+
+{% block contenido %}
+
+		<div class="breadcrumbs">
+			<div class="container">
+				<div class="row">
+					<div class="col">
+						<p class="bread"><span><a href="{% url 'index' %}">Inicio</a></span> / <span>Carro</span></p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="colorlib-product">
+			<div class="container">
+				<div class="row row-pb-lg">
+					<div class="col-md-10 offset-md-1">
+						<div class="process-wrap">
+							<div class="process text-center active">
+								<p><span>01</span></p>
+								<h3>Carrito de compra</h3>
+							</div>
+							<div class="process text-center">
+								<p><span>02</span></p>
+								<h3>Verificar</h3>
+							</div>
+							<div class="process text-center">
+								<p><span>03</span></p>
+								<h3>Orden completada</h3>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row row-pb-lg">
+					<div class="col-md-12">
+						<div class="product-name d-flex">
+							<div class="one-forth text-left px-4">
+								<span>Detalle Producto</span>
+							</div>
+							<div class="one-eight text-center">
+								<span>Precio</span>
+							</div>
+							<div class="one-eight text-center">
+								<span>Cantidad</span>
+							</div>
+							<div class="one-eight text-center">
+								<span>Total</span>
+							</div>
+							<div class="one-eight text-center px-4">
+								<span>Remover</span>
+							</div>
+						</div>
+							
+					</div>
+				</div>
+
+				<div class="row row-pb-lg">
+							{% if request.session.carro.items %}
+								{% for key, value in request.session.carro.items %}
+								<div class="product-cart d-flex">
+									<div class="one-forth">
+										<div class="product-img" style="background-image: url({{value.imagen}});">
+										</div>
+										<div class="display-tc">
+											<h3>{{value.nombre}}</h3>
+										</div>
+									</div>
+									<div class="one-eight text-center">
+										<div class="display-tc">
+											<span class="price">${{value.precio}}</span>
+										</div>
+									</div>
+									<div class="one-eight text-center">
+										<div class="display-tc">
+											<div class="row">	
+												<a href="{% url 'carro:restar' value.producto_id %}" class="btn btn-sm">-</a>
+													<div class="col">
+			
+															<p>{{value.cantidad}}</p>
+														
+													</div>
+												
+												<a href="{% url 'carro:agregar' value.producto_id %}" class="btn btn-sm">+</a>
+											</div>
+										</div>
+									</div>
+									<div class="one-eight text-center">
+										<div class="display-tc">
+											<span class="price">${{value.precio2}}</span>
+										</div>
+									</div>
+									<div class="one-eight text-center">
+										<div class="display-tc">
+											<a href="{% url 'carro:eliminar' value.producto_id %}" class="closed"></a>
+										</div>
+									</div>
+								</div>
+								{% endfor %}
+
+							{% else %}
+							<div class="col-md-12">
+								<tr>
+									<td colspan="12">
+										<div class="alert alert-danger text-center">
+											Sin Productos
+										</div>
+									</td>
+								</tr>
+							</div>
+							{% endif %}
+				</div>
+				
+				<div class="row row-pb-lg">
+							<div class="col-md-12">
+								<div class="total-wrap">
+									<div class="row">
+										<div class="col-sm-8">
+											<form action="#">
+												<div class="row form-group">
+													<div class="col-sm-9">
+														<input type="text" name="quantity" class="form-control input-number" placeholder="Your Coupon Number...">
+													</div>
+													<div class="col-sm-3">
+														<input type="submit" value="Apply Coupon" class="btn btn-primary">
+													</div>
+												</div>
+											</form>
+										</div>
+										<div class="col-sm-4 text-center">
+											<div class="total">
+												<div class="sub">
+													<p><span>Subtotal:</span> <span>${{importe_total_carro}}</span></p>
+													<p><span>Descuento:</span> <span>${{descuento|floatformat:"2"}}</span></p>
+													
+												</div>
+												<div class="grand-total">
+													<p><span><strong>Total:</strong></span><span>${{totaldes}}</span></p>
+													<p><span><strong>Dolar:</strong></span><span>${{dolar}}</span></p>
+												</div>
+												{% if user.is_authenticated and importe_total_carro > 0%}
+												<a class="btn btn-primary" href="{% url 'checkout' %}" role="button">Ir a Pagar</a>
+												{% elif importe_total_carro == 0 %}
+												<a class="btn btn-primary" href="{% url 'index' %}" role="button">Ir a Pagar</a>
+												{% else %}
+												<a class="btn btn-primary" href="{% url 'login' %}" role="button">Ir a Pagar</a>
+												{% endif %}
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+				</div>
+					
+				
+			</div>
+		</div>
+
+		{% endblock %}
+
+		
+
+		

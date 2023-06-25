@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedido</title>
+</head>
+<body>
+    
+    Hola {{nombreusuario}} <br>
+    N° de pedido: {{pedido.id}} <br>
+    Productos:
+    {% for aux in lineas_pedido %}
+        {{aux.producto}} | {{aux.cantidad}}
+    {% endfor %}
+
+</body>
+</html>

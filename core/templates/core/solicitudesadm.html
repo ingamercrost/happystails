@@ -1,0 +1,75 @@
+{% extends 'core/base.html' %}
+
+{% load static %}
+
+{% block contenido %}
+
+
+<div class="container mt-3">
+    <h1>Historial de Solicitudes</h1> <rb></rb>
+   
+        <table class="table table-striped" id="tablaUsuarios"id="tablaUsuarios">
+        <thead>
+            <tr>
+                <th>Usuario</th>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Id de la solicitud</th>
+                <th>Modo Atencion</th>
+                <th>Tipo Solicitud</th>
+                <th>Aceptado</th>
+                <th>Aceptar</th>
+                <th>Detalle</th>
+                <th>Eliminar</th>
+            </tr>
+        </thead>
+        
+            {% for aux in soli %}
+                
+                <tbody>
+                    <tr>
+                        <td>{{aux.nombre}}</td>
+                        <td>{{ aux.fecha|date:'Y-m-d' }}</td>
+                        <td>{{ aux.fecha|time:'H:i' }}</td>
+                        <td>{{aux.id}}</td>
+                        <td>{{aux.tipoatencion}}</td>
+                        <td>{{aux.tiposoli}}</td>
+                        {% if aux.aceptado == False %}
+                        <td>No</td>
+                        {% else %}
+                        <td>Si</td>
+                        {% endif %}
+                        {% if aux.aceptado == True %}
+                        <td>Aceptado</td>
+                        {% else %}
+                        <td><a href="{% url 'updatesoli' aux.id %}" class="btn btn-outline-dark">Aceptar</a></td>
+                        {% endif %}
+                        <td><a href="{% url 'detallesoli' aux.id %}">Detalle</a></td>
+                        <td><a href="{% url 'eliminar' aux.id%}">Eliminar</a></td>
+                    </tr>  
+                </tbody>
+                
+            {% endfor %}
+        
+        
+        </table>
+</div>
+
+
+{% endblock %}
+
+{% block js  %}
+    {% if messages %} 
+        {% for aux in messages %} 
+            <script>
+            Swal.fire({
+            title: 'Confirmación',
+            text: '{{ aux }}',
+            icon: 'success',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Confirmar'
+            })
+            </script>
+        {% endfor %} 
+    {% endif %}
+{% endblock %}

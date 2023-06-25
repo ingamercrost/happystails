@@ -1,0 +1,186 @@
+{% extends 'core/base.html' %}
+
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block contenido %}
+
+		<div class="breadcrumbs">
+			<div class="container">
+				<div class="row">
+					<div class="col">
+						<p class="bread"><span><a href="{% url 'index' %}">Inicio</a></span> / <span>Verificar</span></p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="colorlib-product">
+			<div class="container">
+				<div class="row row-pb-lg">
+					<div class="col-sm-10 offset-md-1">
+						<div class="process-wrap">
+							<div class="process text-center active">
+								<p><span>01</span></p>
+								<h3>Carrito de compra</h3>
+							</div>
+							<div class="process text-center active">
+								<p><span>02</span></p>
+								<h3>Verificar</h3>
+							</div>
+							<div class="process text-center">
+								<p><span>03</span></p>
+								<h3>Orden Completa</h3>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="container">
+					<div class="row" >
+						<div class="col-md-6" style="background-color: #f3f3f3 ;">
+							<form method="POST" enctype="multipart/form-data" id="form">
+								{% csrf_token %}
+								<table >
+									{{ form | crispy}}
+								</table>
+								</div>
+								
+								<div class="col-md-6 text-center">
+									<div class="cart-detail">
+										<div class="total">
+												<div class="sub">
+													<p><span>Subtotal:</span> <span>${{importe_total_carro}}</span></p>
+													<p><span>Descuento:</span> <span>${{descuento|floatformat:"2"}}</span></p>
+												</div>
+												<div class="grand-total">
+													<p><span><strong>Total:</strong></span><span>${{totaldes}}</span></p>
+													<p><span><strong>Dolar:</strong></span><span>${{dolar}}</span></p>
+												</div>
+						
+											</div>
+										
+									</div>
+									<div class="row">
+										<div class="col-sm-12 text-center">
+											<div id = "btnPaypal"></div>
+										</div>
+									</div>
+								</div>
+								
+							</form>
+							<br><br><br>
+							
+						</div>
+					
+				</div>
+					
+				 			
+
+					<div class="col-lg-4">
+						
+						
+						
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+		{% endblock %}
+
+
+
+	
+	
+{% block js %}
+	<script src="https://www.paypalobjects.com/api/checkout.js"></script>
+	<script>
+		function validarFormulario() {
+		var formulario = document.getElementById('form'); // ID del formulario
+
+		if (formulario.checkValidity()) {
+			// El formulario es válido
+			return true;
+		} else {
+			// El formulario no es válido
+			formulario.reportValidity(); // Muestra los mensajes de validación nativos del navegador
+			return false;
+		}
+		}
+	</script>
+
+	
+	
+
+
+
+
+	<script>
+		paypal.Button.render({
+			env: 'sandbox',
+			client: {
+				sandbox: 'ARK6lBHM4GXi3QzOEpnjWLXzFuTfKza_MZVok5HrxCevuxpkgXZQJKN3Ucc4z_2YSprGd2HsMiAmIsDW',
+				production: 'demo_production_client_id'
+			},
+			locale: 'es_CL',
+			style: {
+				size: 'large',
+				color: 'gold',
+				shape: 'rect'
+			},
+			commit: true,
+			
+		payment: function (data, actions) {
+			if (validarFormulario()) {
+				return actions.payment.create({
+					transactions: [{
+						amount: { 
+							total: '{{dolar}}', // EL TOTAL DEL CARRITO DE COMPRA
+							currency: 'USD'
+						}
+					}]
+				});
+			
+			} else {	
+				onCancel()
+    		}
+		},
+			onAuthorize: function (data, actions) {
+				return actions.payment.execute().then(function () {
+					// LA LOGICA DE LO QUE PASA LUEGO DEL PAGO	
+					var url = "{% url 'pedidos:procesar_pedido' %}"
+					window.location.href = url;
+				});
+			},
+			onCancel(data) {
+				Swal.fire({
+						title: 'Cancelado',
+						text: 'Transacción cancelada!',
+						icon: 'error',
+						showCancelButton: false,
+						confirmButtonColor: '#3085d6',
+						cancelButtonColor: '#d33',
+						confirmButtonText: 'Confirmar'
+					})
+			},
+			onError(err) {
+				Swal.fire({
+						title: 'Error',
+						text: 'Ha ocurrido un error con el pago',
+						icon: 'error',
+						showCancelButton: false,
+						confirmButtonColor: '#3085d6',
+						cancelButtonColor: '#d33',
+						confirmButtonText: 'Confirmar'
+					})
+			}
+			
+			
+
+		}, '#btnPaypal');
+	</script>
+{% endblock %}

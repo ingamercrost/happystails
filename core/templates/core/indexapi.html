@@ -1,0 +1,93 @@
+{% extends 'core/base.html' %}
+
+{% load static %}
+
+{% block contenido %}
+
+		<div class="breadcrumbs">
+			<div class="container">
+				<div class="row">
+					<div class="col">
+						<p class="bread"><span><a href="{% url 'index' %}">Inicio</a></span> / <span>Productos</span></p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		
+
+		
+
+		<div class="colorlib-product">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-8 offset-sm-2 text-center colorlib-heading colorlib-heading-sm">
+						<h2>Ver todos los productos</h2>
+					</div>
+				</div>
+				<div class="row row-pb-md">
+					{% for aux in listado %}
+					<div class="col-md-6 col-lg-3 text-center">
+						<div class="product-entry">
+							<a href="#" class="prod-img">
+								<img src="{{ aux.imagen }}" style="height: 199px; width: 199px; border:  2px ridge rgba(0, 0, 0, 0.356); margin-top: 5px; border-radius: 15px;" class="img-fluid" alt="Free html5 bootstrap 4 template">
+							</a>
+							<div class="desc">
+								<h2><a href="{% url 'productdetail' aux.id %}">{{ aux.nombre }}</a></h2>
+								<span class="price">${{ aux.precio }}</span>
+								{% if aux.stock == 0 %}
+									<span style="color: red;">Sin Stock</span>
+								{% else %}
+									<span class="price">Disponible: {{aux.stock}}</span>
+								{% endif%}
+								<div class="row">
+									<div class="col-md-12">
+										{% if aux.stock > 0 and aux.precio > 0 %}
+										<a href="{% url 'carro:agregar' aux.id %}" class="btn btn-outline-dark"><img src="{% static 'core/images/carro.png' %}" alt="" width="17px"></a>
+										{% else %}
+										
+										{% endif %}
+										{% if user.is_superuser %}
+										<a href="{% url 'update' aux.id %}" class="btn btn-outline-dark"><img src="{% static 'core/images/actualizar1.png' %}" alt="" width="17px"></a>
+										<a href="{% url 'delete' aux.id %}" class="btn btn-outline-dark" onclick="return confirm('¿Estás seguro de que deseas eliminar este objeto?')"><img src="{% static 'core/images/eliminar1.png' %}" alt="" width="17px"></a>
+										{% endif %}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>	
+					{% endfor %}
+					
+
+				{% include 'core/paginator.html' %}
+			</div>
+		</div>
+
+		<div class="colorlib-partner">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-8 offset-sm-2 text-center colorlib-heading colorlib-heading-sm">
+						<h2>Patrocinadores</h2>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col partner-col text-center">
+						<img src="{% static 'core/images/1.jpg' %}" class="img-fluid" alt="Free html4 bootstrap 4 template">
+					</div>
+					<div class="col partner-col text-center">
+						<img src="{% static 'core/images/2.jpg' %}" class="img-fluid" alt="Free html4 bootstrap 4 template">
+					</div>
+					<div class="col partner-col text-center">
+						<img src="{% static 'core/images/3.jpg' %}" class="img-fluid" alt="Free html4 bootstrap 4 template">
+					</div>
+					<div class="col partner-col text-center">
+						<img src="{% static 'core/images/4.jpg' %}" class="img-fluid" alt="Free html4 bootstrap 4 template">
+					</div>
+					<div class="col partner-col text-center">
+						<img src="{% static 'core/images/5.jpg' %}" class="img-fluid" alt="Free html4 bootstrap 4 template">
+					</div>
+				</div>
+			</div>
+		</div>
+
+		{% endblock %}

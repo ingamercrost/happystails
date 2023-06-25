@@ -1,0 +1,28 @@
+{% extends 'core/base.html' %}
+
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block contenido %}
+
+    <br><br>
+    <form method="POST" action="">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                    {% csrf_token %}
+
+                    {{ form | crispy }}
+                    <div class="col-md-12 text-center">
+                        <input type="submit" class="btn btn-outline-primary" value="Registrarme">
+                    </div>    
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+        </div>
+    </form>
+    
+ 
+{% endblock %}                                      

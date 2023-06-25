@@ -1,0 +1,40 @@
+{% extends 'core/base.html' %}
+
+{% load static %}
+
+{% block contenido %}
+
+
+<div class="container mt-3">
+    <h1>Historial de Solicitudes</h1> <rb></rb>
+   
+        <table class="table table-striped" id="tablaUsuarios"id="tablaUsuarios">
+        <thead>
+            <tr>
+                <th>Descripcion</th>
+                <th>Hora</th>
+                <th>Fecha</th>
+                <th>Tipo Atencion</th>
+                <th>Tipo Solicitud</th>
+                
+            </tr>
+        </thead>
+        
+            
+                <tbody>
+                    <tr>
+                        <td>{{soli.descripcion}}</td>
+                        <td>{{soli.fecha|time:'H:i'}}</td>
+                        <td>{{soli.fecha|date:'Y-m-d'}}</td>
+                        <td>{{soli.tipoatencion}}</td>
+                        <td>{{soli.tiposoli}}</td>
+                    </tr>  
+                </tbody>
+                
+        
+        
+        </table>
+</div>
+
+
+{% endblock %}

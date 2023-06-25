@@ -1,0 +1,43 @@
+{% extends 'core/base.html' %}
+
+{% load static %}
+
+
+{% block contenido %}
+
+<div class="container mt-3">
+    <h1>Historial de Solicitudes</h1> <rb></rb>
+   
+        <table class="table table-striped" id="tablaUsuarios"id="tablaUsuarios">
+        <thead>
+            <tr>
+                <th>Usuario</th>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Id de la solicitud</th>
+                <th>Modo Atencion</th>
+                <th>Tipo Solicitud</th>
+            </tr>
+        </thead>
+        
+            {% for aux in soli %}
+                {% if  aux.nombre == user.username%}
+                <tbody>
+                    <tr>
+                        <td>{{aux.nombre}}</td>
+                        <td>{{ aux.fecha|date:'Y-m-d' }}</td>
+                        <td>{{ aux.fecha|time:'H:i' }}</td>
+                        <td>{{aux.id}}</td>
+                        <td>{{aux.tipoatencion}}</td>
+                        <td>{{aux.tiposoli}}</td>
+                    </tr>  
+                </tbody>
+                {% endif %}
+            {% endfor %}
+        
+        
+        </table>
+</div>
+
+{% endblock %}
+
